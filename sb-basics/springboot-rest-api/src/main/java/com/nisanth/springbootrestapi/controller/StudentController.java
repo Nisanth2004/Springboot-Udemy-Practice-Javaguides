@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("students")
 public class StudentController {
 
     @GetMapping("/student")
@@ -22,7 +23,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("students")
+    @GetMapping
     public ResponseEntity<List<Student>> getStudents()
     {
         List<Student> students=new ArrayList<>();
@@ -37,7 +38,7 @@ public class StudentController {
     // Spring Boot REST API with path varibale
 
     // http://localhost:8080/students/10
-    @GetMapping("students/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Student> studentpathBaribale(@PathVariable int id)
     {
        Student student=new  Student(id,"Nisanth","Selvaraj");
@@ -47,7 +48,7 @@ public class StudentController {
 
     // REST API with Request Param
     // http://localhost:8080/students/query?id=19&firstName=Kanisha&lastName=T
-    @GetMapping("students/query")
+    @GetMapping("query")
     public ResponseEntity<Student> studentRequesVariable(@RequestParam int id,
                                         @RequestParam String firstName,
                                          @RequestParam String lastName
@@ -60,7 +61,7 @@ public class StudentController {
     // REST API that handles Post Request
     // @PostMapping and @ReequestBody
 
-    @PostMapping("students/create")
+    @PostMapping("create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student)
     {
         System.out.println(student.getId());
@@ -72,7 +73,7 @@ public class StudentController {
     // REST API that handles Put Request
     // @PutMapping and @ReequestBody
 
-    @PutMapping("students/{id}/update")
+    @PutMapping("{id}/update")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") int studentid)
     {
         System.out.println(student.getFirstName());
@@ -84,7 +85,7 @@ public class StudentController {
     // REST API that handles Delete Request
     // @PutMapping and @ReequestBody
 
-    @DeleteMapping("students/{id}/delete")
+    @DeleteMapping("{id}/delete")
     public ResponseEntity<String> deleteStudent(@PathVariable("id") int studentId)
     {
         System.out.println(studentId);
