@@ -7,6 +7,7 @@ import com.nisanth.emsbackend.exception.ResourceNotFoundException;
 import com.nisanth.emsbackend.repository.EmployeeRepository;
 import com.nisanth.emsbackend.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,5 +48,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employees.stream().map((employee )->EmployeeMapper.mapToEmployeeDto(employee))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee) {
+        Employee employee=  employeeRepository.findById(employeeId)
+                .orElseThrow(()->new ResourceNotFoundException("Employee does not exist by this id: "+employeeId));
+
+        employee.setFirstName(updatedEmployee.getFirstName());
+        employee.setLastName(updatedEmployee.getLastName());
+        employee.setEmail(updatedEmployee.getEmail());
+       Employee updatedEmployeeObj= employeeRepository.save(employee);
+
+        return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        Employee employee=  employeeRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Employee does not exist by this id: "+id));
+
+        employeeRepository.deleteById(id);
+
     }
 }
