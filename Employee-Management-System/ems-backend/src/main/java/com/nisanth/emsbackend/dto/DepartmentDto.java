@@ -1,6 +1,4 @@
-package com.nisanth.emsbackend.entity;
-
-
+package com.nisanth.emsbackend.dto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,18 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "departments")
-public class Department {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DepartmentDto {
     private Long id;
-
-    @Column(name = "department_name")
     private String departMentName;
-
-    @Column(name = "department_description")
     private String departmentDescription;
 }

@@ -4,6 +4,7 @@ import './App.css'
 import EmployeeComponent from './components/EmployeeComponent'
 import FooterComponent from './components/FooterComponent'
 import HeaderComponent from './components/HeaderComponent'
+import ListDepartmentComponent from './components/ListDepartmentComponent'
 import ListEmployeeComponent from './components/ListEmployeeComponent'
 import { BrowserRouter,Route,Routes } from 'react-router-dom'
 function App() {
@@ -25,6 +26,10 @@ function App() {
 
        {/* http://localhost:3000/edit-employee */}
        <Route path='/edit-employee/:id' element={ <EmployeeComponent/>}></Route>
+
+       {/* http://localhost:3000/departments */}
+       <Route path='/departments' element={ <ListDepartmentComponent/>}></Route>
+      
       
 
     </Routes>
