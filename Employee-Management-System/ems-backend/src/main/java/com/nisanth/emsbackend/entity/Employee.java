@@ -28,6 +28,6 @@ public class Employee {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="department_id")
+    @JoinColumn(name="department_id", referencedColumnName = "id")
     private Department department;
 }

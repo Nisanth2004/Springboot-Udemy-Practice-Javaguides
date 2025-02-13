@@ -2,8 +2,10 @@ package com.nisanth.emsbackend.service.impl;
 
 import com.nisanth.emsbackend.dto.EmployeeDto;
 import com.nisanth.emsbackend.dto.EmployeeMapper;
+import com.nisanth.emsbackend.entity.Department;
 import com.nisanth.emsbackend.entity.Employee;
 import com.nisanth.emsbackend.exception.ResourceNotFoundException;
+import com.nisanth.emsbackend.repository.DepartmentRepository;
 import com.nisanth.emsbackend.repository.EmployeeRepository;
 import com.nisanth.emsbackend.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -18,12 +20,17 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+
+    private DepartmentRepository departmentRepository;
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
 
         //  convert the EmployeeDto to Employee entity to store in database
 
         Employee employee= EmployeeMapper.mapToEmployee(employeeDto);
+      Department department= departmentRepository.findById(employeeDto.getDepartmentId())
+                .orElseThrow(()->new ResourceNotFoundException("Department is not exists by this Id"));
+        employee.setDepartment(department);
         Employee savedEmployee=employeeRepository.save(employee);
 
         // return the employeeDto instead of entity to aviod to transfer sensitive
@@ -58,6 +65,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setLastName(updatedEmployee.getLastName());
         employee.setEmail(updatedEmployee.getEmail());
+
+        Department department= departmentRepository.findById(updatedEmployee.getDepartmentId())
+                .orElseThrow(()->new ResourceNotFoundException("Department is not exists by this Id"));
+        employee.setDepartment(department);
        Employee updatedEmployeeObj= employeeRepository.save(employee);
 
         return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
