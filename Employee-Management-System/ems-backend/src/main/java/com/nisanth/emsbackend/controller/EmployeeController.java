@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin("https://nisanth-ems.netlify.app/")
 @RestController
 @RequestMapping("/api/employees")
 @AllArgsConstructor

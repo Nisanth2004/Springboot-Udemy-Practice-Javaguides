@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REST_API_BASE_URL='http://localhost:8080/api/departments';
+const REST_API_BASE_URL='https://ems-5gi1.onrender.com/api/departments';
 
 export const getAllDepartments=()=>{
     return axios.get(REST_API_BASE_URL);
